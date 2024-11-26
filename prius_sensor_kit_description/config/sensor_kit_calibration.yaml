@@ -1,0 +1,50 @@
+sensor_kit_base_link:
+os1_top_base_link: # Lidar
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  # camera0/camera_link: # Camera
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # ars548_frh_base_link: # Radar FRH
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # ars548_flh_base_link: # Radar FLH
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # ars548_rrh_base_link: # Radar RRH
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # ars548_rlh_base_link: # Radar RLH
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
+  # GNSS_INS/gnss_ins_link: # GNSS/INS
+  #   x: 0.0
+  #   y: 0.0
+  #   z: 0.0
+  #   roll: 0.0
+  #   pitch: 0.0
+  #   yaw: 0.0
