@@ -11,25 +11,30 @@
 
     <group>
       <push-ros-namespace namespace="top"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_OS1.launch.xml">
+      <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_OS1.launch.xml"/>
         <arg name="sensor_hostname" value="192.162.2.221"/>
-        <arg name="lidar_port" value="2368">
-        <arg name="imu_port" value="0">
+        <arg name="lidar_port" value="2368"/>
+        <arg name="imu_port" value="0"/>
         <arg name="sensor_frame" value="os_top"/>
-        <arg name="lidar_frame" value="os_lidar">
-        <arg name="imu_frame" value="os_imu">
-        <arg name="point_cloud_frame" value="os_lidar">
-        <arg name="point_type" value = "original">        
+        <arg name="lidar_frame" value="os_lidar"/>
+        <arg name="imu_frame" value="os_imu"/>
+        <arg name="point_cloud_frame" value="os_lidar"/>
+        <arg name="point_type" value = "xyzir"/>        
         <arg name="min_range" value="0.0"/>
         <arg name="max_range" value="250.0"/>               
-
-        <arg name="host_ip" value="$(var host_ip)"/>
       </include>
+      
+      <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/ouster_node_container.launch.py"/>
+      <arg name="base_frame" value="base_link"/>
+      <arg name="use_intra_process" value="true"/>
+      <arg name="use_multithread" value="true"/>
+      <arg name="container_name" value="$(var pointcloud_container_name)"/>
+    </include>
     </group> 
 
     
 
-    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
+    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py"/>
       <arg name="base_frame" value="base_link"/>
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
