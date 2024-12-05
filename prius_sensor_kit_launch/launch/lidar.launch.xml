@@ -12,7 +12,7 @@
     <group>
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_OS1.launch.xml"/>
-        <arg name="sensor_hostname" value="192.162.2.221"/>
+        <arg name="sensor_hostname" value="192.168.2.221"/>
         <arg name="lidar_port" value="2368"/>
         <arg name="imu_port" value="0"/>
         <arg name="sensor_frame" value="os1_top"/>
