@@ -1,6 +1,6 @@
 sensor_kit_base_link:
-os1_top_base_link: # Lidar
-    x: 0.0
+  os1_top_base_link: # Lidar
+    x: 0.1
     y: 0.0
     z: 0.0
     roll: 0.0
