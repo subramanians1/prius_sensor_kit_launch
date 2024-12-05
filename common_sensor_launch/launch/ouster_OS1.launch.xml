@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name = "sensor_hostname" default = "192.162.2.221"/>
+    <arg name = "sensor_hostname" default = "192.168.2.221"/>
     <arg name = "udp_dest" default = ""/>
     <arg name = "mtp_dest" default = ""/>
     <arg name = "mtp_main" default = "false"/>
