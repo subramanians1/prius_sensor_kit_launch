@@ -25,7 +25,7 @@
     <xacro:property name="calibration" value="${xacro.load_yaml('$(arg config_dir)/sensor_kit_calibration.yaml')}"/>
 
     <!-- lidar -->    
-    <xacro:OS1-128 parent="sensor_kit_base_link" name="os1_top" topic_points="/points_raw" hz="10" samples="220">
+    <xacro:OS1-128 parent="sensor_kit_base_link" name="os1_top" topic="/points_raw" hz="10" samples="220">
       <origin
         xyz="${calibration['sensor_kit_base_link']['os1_top_base_link']['x']}
              ${calibration['sensor_kit_base_link']['os1_top_base_link']['y']}
