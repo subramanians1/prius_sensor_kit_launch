@@ -10,7 +10,7 @@
     <arg name = "udp_profile_lidar" default = ""/>
     <arg name = "metadata" default = ""/>
     <arg name = "lidar_port" default = "0"/>
-    <arg name = "viz" default = "true"/>
+    <arg name = "viz" default = "false"/>
     
     <arg name = "imu_port" default = "0"/>
     <arg name = "sensor_frame" default = "os_sensor"/>
