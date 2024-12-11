@@ -77,7 +77,7 @@ def launch_setup(context, *args, **kwargs):
             package='ouster_point_type_adapter',
             plugin='ouster_point_type_adapter::OusterPointTypeAdapter',
             name='ouster_point_type_adapter',
-            remappings=[('input', '/ouster/points'),
+            remappings=[('input', '/sensing/lidar/top/ouster/points'),
                         ('output', '/sensing/lidar/top/pointcloud_raw_ex'), 
                         ('base_output', '/sample/topic')], 
                     )
@@ -195,6 +195,7 @@ def generate_launch_description():
     add_launch_arg("input_frame", LaunchConfiguration("base_frame"), "use for cropbox")
     add_launch_arg("output_frame", LaunchConfiguration("base_frame"), "use for cropbox")
     add_launch_arg("use_multithread", "False", "use multithread")
+    add_launch_arg("output_as_sensor_frame", "True", "output final pointcloud in sensor frame")
     add_launch_arg("use_intra_process", "False", "use ROS 2 component container communication")
     add_launch_arg("container_name", "pointcloud_container", "container name")
     add_launch_arg(

@@ -10,8 +10,9 @@
     <arg name = "udp_profile_lidar" default = ""/>
     <arg name = "metadata" default = ""/>
     <arg name = "lidar_port" default = "0"/>
+    <arg name = "viz" default = "true"/>
     
-    <arg name = "imu_port" default = 0/>
+    <arg name = "imu_port" default = "0"/>
     <arg name = "sensor_frame" default = "os_sensor"/>
     <arg name = "lidar_frame" default = "os_lidar"/>
     <arg name = "imu_frame" default = "os_imu"/>
@@ -19,7 +20,7 @@
     <arg name = "pub_static_tf" default = "true"/>
     <arg name = "proc_mask" default = "IMU|PCL|SCAN|IMG|RAW"/>
     <arg name = "scan_ring" default = "0"/>
-    <arg name = "use_system_default_qos" default = "false"/>
+    <arg name = "use_system_default_qos" default = "true"/>
     <arg name = "point_type" default = "xyzir"/>
 
     <arg name = "azimuth_window_start" default = "0"/>
@@ -34,39 +35,40 @@
     <arg name = "max_range" default = "1000.0"/>
     
 
-+   <include file="$(find-pkg-share ouster_ros)/launch/sensor.launch.xml"/>
-    <arg name = "sensor_hostname" value = "$(var sensor_hostname)"/>
-    <arg name = "udp_dest" value = "$(var udp_dest)"/>
-    <arg name = "mtp_dest" value = "$(var mtp_dest)"/>
-    <arg name = "mtp_main" value = "$(var mtp_main)"/>
-    <arg name = "lidar_mode" value = ""/>
-    <arg name = "timestamp_mode" value = "$(var timestamp_mode)"/>
-    <arg name = "ptp_utc_tai_offset" value = "$(var ptp_utc_tai_offset)"/>
-    <arg name = "udp_profile_lidar" value = "$(var udp_profile_lidar)"/>
-    <arg name = "metadata" value = "$(var metadata)"/>
-    <arg name = "lidar_port" value = "$(var lidar_port)"/>
++   <include file="$(find-pkg-share ouster_ros)/launch/sensor.launch.xml">
+        <arg name = "sensor_hostname" value = "$(var sensor_hostname)"/>
+        <arg name = "udp_dest" value = "$(var udp_dest)"/>
+        <arg name = "mtp_dest" value = "$(var mtp_dest)"/>
+        <arg name = "mtp_main" value = "$(var mtp_main)"/>
+        <arg name = "lidar_mode" value = ""/>
+        <arg name = "timestamp_mode" value = "$(var timestamp_mode)"/>
+        <arg name = "ptp_utc_tai_offset" value = "$(var ptp_utc_tai_offset)"/>
+        <arg name = "udp_profile_lidar" value = "$(var udp_profile_lidar)"/>
+        <arg name = "metadata" value = "$(var metadata)"/>
+        <arg name = "lidar_port" value = "$(var lidar_port)"/>
+        <arg name = "viz" value = "$(var viz)"/>
 
-    <arg name = "imu_port" value = "$(var imu_port)"/>
-    <arg name = "sensor_frame" value = "$(var sensor_frame)"/>
-    <arg name = "lidar_frame" value = "$(var lidar_frame)"/>
-    <arg name = "imu_frame" value = "$(var imu_frame)"/>
-    <arg name = "point_cloud_frame" value = "$(var point_cloud_frame)"/>
-    <arg name = "pub_static_tf" value = "$(var pub_static_tf)"/>
-    <arg name = "proc_mask" value = "$(var proc_mask)"/>
-    <arg name = "scan_ring" value = "$(var scan_ring)"/>
-    <arg name = "use_system_default_qos" value = "$(var use_system_default_qos)"/>
-    <arg name = "point_type" value = "$(var point_type)"/>
+        <arg name = "imu_port" value = "$(var imu_port)"/>
+        <arg name = "sensor_frame" value = "$(var sensor_frame)"/>
+        <arg name = "lidar_frame" value = "$(var lidar_frame)"/>
+        <arg name = "imu_frame" value = "$(var imu_frame)"/>
+        <arg name = "point_cloud_frame" value = "$(var point_cloud_frame)"/>
+        <arg name = "pub_static_tf" value = "$(var pub_static_tf)"/>
+        <arg name = "proc_mask" value = "$(var proc_mask)"/>
+        <arg name = "scan_ring" value = "$(var scan_ring)"/>
+        <arg name = "use_system_default_qos" value = "$(var use_system_default_qos)"/>
+        <arg name = "point_type" value = "$(var point_type)"/>
 
-    <arg name = "azimuth_window_start" value = "$(var azimuth_window_start)"/>
-    <arg name = "azimuth_window_end" value = "$(var azimuth_window_end)"/>
-    <arg name = "persist_config" value = "$(var persist_config)"/>
-    <arg name = "attempt_reconnect" value = "$(var attempt_reconnect)"/>
-    <arg name = "dormant_period_between_reconnects" value = "$(var dormant_period_between_reconnects)"/>
-    <arg name = "max_failed_reconnect_attempts" value = "$(var max_failed_reconnect_attempts)"/>
-    <arg name = "organized" value = "$(var organized)"/>
-    <arg name = "destagger" value = "$(var destagger)"/>
-    <arg name = "min_range" value = "$(var min_range)"/>
-    <arg name = "max_range" value = "$(var max_range)"/>
+        <arg name = "azimuth_window_start" value = "$(var azimuth_window_start)"/>
+        <arg name = "azimuth_window_end" value = "$(var azimuth_window_end)"/>
+        <arg name = "persist_config" value = "$(var persist_config)"/>
+        <arg name = "attempt_reconnect" value = "$(var attempt_reconnect)"/>
+        <arg name = "dormant_period_between_reconnects" value = "$(var dormant_period_between_reconnects)"/>
+        <arg name = "max_failed_reconnect_attempts" value = "$(var max_failed_reconnect_attempts)"/>
+        <arg name = "organized" value = "$(var organized)"/>
+        <arg name = "destagger" value = "$(var destagger)"/>
+        <arg name = "min_range" value = "$(var min_range)"/>
+        <arg name = "max_range" value = "$(var max_range)"/>
 
     </include>
 </launch>
