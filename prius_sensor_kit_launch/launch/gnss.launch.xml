@@ -1,38 +1,51 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/>
+  <!--<arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/>-->
 
   <group>
-    <push-ros-namespace namespace="gnss"/>
+    <push-ros-namespace namespace="imu"/> 
 
-    <!-- Switch topic name -->
-    <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
-    <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
-    <let name="orientation_topic_name" value="/autoware_orientation"/>
+    <!-- INS Sensor Driver -->
+    <include file="$(find-pkg-share oxts)/launch/run.py">
+      <arg name="unit_ip" value="192.168.2.50"/>
+      <arg name="topic_prefix" value="oxts"/>
+      <arg name="frame_id" value="imu_link"/>
+    </include>  
 
-    <!-- Ublox Driver -->
-    <group if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)">
-      <node pkg="ublox_gps" name="ublox" exec="ublox_gps_node" if="$(var launch_driver)" respawn="true" respawn_delay="1.0">
-        <remap from="~/fix" to="~/nav_sat_fix"/>
-        <param from="$(find-pkg-share ublox_gps)/c94_f9p_rover.yaml"/>
-      </node>
-    </group>
+    <!-- IMU corrector -->
 
-    <!-- Septentrio GNSS Driver -->
-    <group if="$(eval &quot;'$(var launch_driver)' and '$(var gnss_receiver)'=='septentrio'&quot;)">
-      <include file="$(find-pkg-share septentrio_gnss_driver)/launch/mosaic_x5_rover.launch.xml"/>
-    </group>
-
+    <include file="$(find-pkg-share autoware_imu_corrector)/launch/imu_corrector.launch.xml">
+      <arg name="input_topic" value="$(var topic_prefix)/imu"/>
+      <arg name="output_topic" value="imu_data"/>
+      <arg name="param_file" value="$(find-pkg-share individual_params)/config/default/prius_sensor_kit/imu_corrector.param.yaml"/>
+    </include>
+    
+    <include file="$(find-pkg-share autoware_imu_corrector)/launch/gyro_bias_estimator.launch.xml">
+      <arg name="input_imu_raw" value="$(var topic_prefix)/imu"/>
+      <arg name="input_odom" value="$(var topic_prefix)/odometry"/>
+      <arg name="imu_corrector_param_file" value="$(find-pkg-share individual_params)/config/default/prius_sensor_kit/imu_corrector.param.yaml"/> 
+    </include>
+    
+    
     <!-- NavSatFix to MGRS Pose -->
     <include file="$(find-pkg-share autoware_gnss_poser)/launch/gnss_poser.launch.xml">
-      <arg name="input_topic_fix" value="$(var navsatfix_topic_name)"/>
-      <arg name="input_topic_orientation" value="$(var orientation_topic_name)"/>
+      <arg name="input_topic_fix" value="$(var topic_prefix)/nav_sat_fix"/>
+      <arg name="input_topic_orientation" value="/orientation/path"/>
 
       <arg name="output_topic_gnss_pose" value="pose"/>
       <arg name="output_topic_gnss_pose_cov" value="pose_with_covariance"/>
       <arg name="output_topic_gnss_fixed" value="fixed"/>
 
-      <arg name="use_gnss_ins_orientation" value="true"/>
+      <arg name="param_file" value="$(find-pkg-share autoware_gnss_poser)/config/gnss_poser.param.yaml"/>
+
     </include>
+     
+    <!--
+    <remap from ="gyro_bias" to="/imu/gyro_bias"/> 
+    <remap from ="imu_data" to="/imu/imu_data"/> 
+    -->
+    
   </group>
+
+  
 </launch>

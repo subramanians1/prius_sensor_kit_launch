@@ -14,4 +14,17 @@
     pitch="${calibration['base_link']['sensor_kit_base_link']['pitch']}"
     yaw="${calibration['base_link']['sensor_kit_base_link']['yaw']}"
   />
+
+  <!--
+  <xacro:include filename="sensor_kit.xacro"/>
+  <xacro:sensor_kit_macro
+    parent="base_link"
+    x="1"
+    y="1"
+    z="0"
+    roll="0"
+    pitch="0"
+    yaw="0"
+  /> -->
+  
 </robot>

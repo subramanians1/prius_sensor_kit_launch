@@ -4,6 +4,8 @@
   <group>
     <push-ros-namespace namespace="imu"/>
 
+
+    <!--
     <group>
       <push-ros-namespace namespace="tamagawa"/>
       <node pkg="tamagawa_imu_driver" name="tag_serial_driver" exec="tag_serial_driver" if="$(var launch_driver)">
@@ -25,6 +27,6 @@
       <arg name="input_imu_raw" value="$(var imu_raw_name)"/>
       <arg name="input_odom" value="/localization/kinematic_state"/>
       <arg name="imu_corrector_param_file" value="$(var imu_corrector_param_file)"/>
-    </include>
+    </include> -->
   </group>
 </launch>
