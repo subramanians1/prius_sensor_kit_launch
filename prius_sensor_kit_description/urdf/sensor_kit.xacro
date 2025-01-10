@@ -5,7 +5,7 @@
     <xacro:include filename="$(find vls_description)/urdf/VLS-128.urdf.xacro"/>
     <xacro:include filename="$(find ouster_description)/urdf/OS1-128.urdf.xacro"/>
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
-    <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
+    <xacro:include filename="$(find oxts_ins)/urdf/OxTS.xacro"/>
     <!-- <xacro:include filename="$(find oxts_ins)/urdf/small_core.urdf.xml"/> -->
 
     <xacro:arg name="gpu" default="false"/>
