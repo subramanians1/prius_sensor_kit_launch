@@ -11,7 +11,7 @@
     <arg name = "metadata" default = ""/>
     <arg name = "lidar_port" default = "0"/>
     
-    <arg name = "imu_port" default = 0/>
+    <arg name = "imu_port" default = "0"/>
     <arg name = "sensor_frame" default = "os_sensor"/>
     <arg name = "lidar_frame" default = "os_lidar"/>
     <arg name = "imu_frame" default = "os_imu"/>
@@ -34,7 +34,7 @@
     <arg name = "max_range" default = "1000.0"/>
     
 
-+   <include file="$(find-pkg-share ouster_ros)/launch/sensor.launch.xml"/>
++   <include file="$(find-pkg-share ouster_ros)/launch/sensor.launch.xml">
     <arg name = "sensor_hostname" value = "$(var sensor_hostname)"/>
     <arg name = "udp_dest" value = "$(var udp_dest)"/>
     <arg name = "mtp_dest" value = "$(var mtp_dest)"/>
