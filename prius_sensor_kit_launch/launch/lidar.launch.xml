@@ -24,7 +24,7 @@
         <!-- <arg name="max_range" value="75.0"/>                -->
       </include>
       
-      <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_node_container.launch.py">
+      <include file="$(find-pkg-share prius_sensor_kit_launch)/launch/ouster_node_container.launch.py">
       <arg name="base_frame" value="base_link"/>
       <arg name="frame_id" value="base_link"/>s
       <arg name="use_intra_process" value="true"/>
