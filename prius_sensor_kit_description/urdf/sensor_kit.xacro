@@ -112,7 +112,7 @@
       height="400"
       fov="1.3"
     /> -->
-    <!-- gnss -->
+    <!-- gnss --> 
     <xacro:OxTS
       name="navsat"
       parent="sensor_kit_base_link"
