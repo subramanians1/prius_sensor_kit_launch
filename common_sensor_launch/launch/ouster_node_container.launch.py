@@ -77,11 +77,11 @@ def launch_setup(context, *args, **kwargs):
             package='ouster_point_type_adapter',
             plugin='ouster_point_type_adapter::OusterPointTypeAdapter',
             name='ouster_point_type_adapter',
-            remappings=[('input', '/ouster/points'),
+            remappings=[('input', 'ouster/points'),
                         ('output', '/sensing/lidar/top/pointcloud_raw_ex'), 
                         ('base_output', '/sample/topic')], 
-                    )
-     )
+        )
+    )
 
 
     cropbox_parameters = create_parameter_dict("input_frame", "output_frame")
@@ -191,6 +191,7 @@ def generate_launch_description():
     common_sensor_share_dir = get_package_share_directory("common_sensor_launch")
 
     add_launch_arg("base_frame", "base_link", "base frame id")
+    add_launch_arg("output_as_sensor_frame", "true", "to use ring_outlier_filter")
     add_launch_arg("frame_id", "lidar", "frame id")
     add_launch_arg("input_frame", LaunchConfiguration("base_frame"), "use for cropbox")
     add_launch_arg("output_frame", LaunchConfiguration("base_frame"), "use for cropbox")

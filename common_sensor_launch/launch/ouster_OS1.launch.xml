@@ -19,7 +19,7 @@
     <arg name = "pub_static_tf" default = "true"/>
     <arg name = "proc_mask" default = "IMU|PCL|SCAN|IMG|RAW"/>
     <arg name = "scan_ring" default = "0"/>
-    <arg name = "use_system_default_qos" default = "false"/>
+    <arg name = "use_system_default_qos" default = "true"/>
     <arg name = "point_type" default = "xyzir"/>
 
     <arg name = "azimuth_window_start" default = "0"/>
