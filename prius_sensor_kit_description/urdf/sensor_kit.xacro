@@ -5,7 +5,7 @@
     <xacro:include filename="$(find vls_description)/urdf/VLS-128.urdf.xacro"/>
     <xacro:include filename="$(find ouster_description)/urdf/OS1-128.urdf.xacro"/>
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
-    <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
+    <xacro:include filename="$(find oxts_ins)/urdf/OxTS.xacro"/>
 
     <xacro:arg name="gpu" default="false"/>
     <xacro:arg name="config_dir" default="$(find prius_sensor_kit_description)/config"/>
@@ -24,7 +24,7 @@
     <!-- sensor -->
     <xacro:property name="calibration" value="${xacro.load_yaml('$(arg config_dir)/sensor_kit_calibration.yaml')}"/>
 
-    <!-- lidar -->    
+    <!-- lidar --> 
     <!-- <xacro:OS1-128 parent="sensor_kit_base_link" name="os1_top" topic_points="/points_raw" hz="10" samples="220">
       <origin
         xyz="${calibration['sensor_kit_base_link']['os1_top_base_link']['x']}
@@ -33,14 +33,14 @@
         rpy="${calibration['sensor_kit_base_link']['os1_top_base_link']['roll']}
              ${calibration['sensor_kit_base_link']['os1_top_base_link']['pitch']}
              ${calibration['sensor_kit_base_link']['os1_top_base_link']['yaw']}"
-      />
-    </xacro:OS1-128>     -->
+      /> 
+    </xacro:OS1-128>       -->
     <xacro:OS1-128 parent="sensor_kit_base_link" name="os1_top" topic_points="/points_raw" hz="10" samples="220">
       <origin
         xyz="0 0 0"
         rpy="0 0 0"
       />
-    </xacro:OS1-128>   
+    </xacro:OS1-128>    
 
     <!-- camera -->
     
@@ -121,20 +121,30 @@
       height="400"
       fov="1.3"
     /> -->
-    <!-- gnss -->
-    <!-- <xacro:imu_macro
-      name="gnss"
+    <!-- gnss --> 
+    <xacro:OxTS
+      name="navsat"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['gnss_ins_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['gnss_ins_link]['y']}"
-      z="${calibration['sensor_kit_base_link']['gnss_ins_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['gnss_ins_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['gnss_ins_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['gnss_ins_link']['yaw']}"
+      x="-0.25"
+      y="0"
+      z="1"
+      roll="0"
+      pitch="0"
+      yaw="0"
       fps="100"
-    /> -->
-
-    
+    />  
+    <xacro:OxTS
+      parent="sensor_kit_base_link"
+      name="imu"
+      namespace="" 
+      fps="100"
+      x="-1"
+      y="0"
+      z="0"
+      roll="0"
+      pitch="0"
+      yaw="0"  
+    />     
   </xacro:macro>
 </robot>

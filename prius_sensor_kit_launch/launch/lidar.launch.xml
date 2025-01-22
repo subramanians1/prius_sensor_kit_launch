@@ -1,6 +1,6 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <arg name="host_ip" default="192.162.2.221"/>
+  <arg name="host_ip" default="192.168.2.221"/>
   <arg name="use_concat_filter" default="true"/>
   <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
   <arg name="vehicle_mirror_param_file"/>
@@ -13,7 +13,7 @@
       <push-ros-namespace namespace="top"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_OS1.launch.xml">
         <arg name="sensor_hostname" value="192.168.2.221"/>
-        <!-- <arg name="lidar_port" value="2368"/> -->
+        <!-- <arg name="lidar_port" value=""/> -->
         <!-- <arg name="imu_port" value="0"/> -->
         <arg name="sensor_frame" value="os1_top"/>
         <arg name="lidar_frame" value="base_link"/>
@@ -26,8 +26,10 @@
       
       <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_node_container.launch.py">
       <arg name="base_frame" value="base_link"/>
+      <arg name="frame_id" value="base_link"/>s
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
+      <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/> 
       <arg name="container_name" value="$(var pointcloud_container_name)"/>
       <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
     </include>

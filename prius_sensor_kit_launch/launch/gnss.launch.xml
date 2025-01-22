@@ -1,6 +1,6 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/>
+  <arg name="gnss_receiver" default="oxts" description="ublox or septentrio or OxTS(default)"/>
 
   <group>
     <push-ros-namespace namespace="gnss"/>
@@ -8,6 +8,7 @@
     <!-- Switch topic name -->
     <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
     <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
+    <let name="navsatfix_topic_name" value="/sensing/oxts/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='oxts'&quot;)"/>
     <let name="orientation_topic_name" value="/autoware_orientation"/>
 
     <!-- Ublox Driver -->
@@ -32,7 +33,10 @@
       <arg name="output_topic_gnss_pose_cov" value="pose_with_covariance"/>
       <arg name="output_topic_gnss_fixed" value="fixed"/>
 
-      <arg name="use_gnss_ins_orientation" value="true"/>
+      <arg name="use_gnss_ins_orientation" value="false"/>
+      <arg name="gnss_base_frame" value="navsat_base_link"/>
+      <arg name="param_file" value="$(find-pkg-share autoware_gnss_poser)/config/gnss_poser.param.yaml"/>
+
     </include>
   </group>
 </launch>

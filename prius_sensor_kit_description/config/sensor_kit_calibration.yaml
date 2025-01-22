@@ -1,11 +1,25 @@
 sensor_kit_base_link:
-os1_top_base_link: # Lidar
+  os1_top_base_link: # Lidar
     x: 0.0
     y: 0.0
     z: 0.0
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  imu_link: # INS-IMU
+    x: -1.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  navsat_link: # INS-GNSS
+    x: 0
+    y: 0
+    z: 0
+    roll: 0
+    pitch: 0
+    yaw: 0
   # camera0/camera_link: # Camera
   #   x: 0.0
   #   y: 0.0
@@ -41,10 +55,4 @@ os1_top_base_link: # Lidar
   #   roll: 0.0
   #   pitch: 0.0
   #   yaw: 0.0
-  # GNSS_INS/gnss_ins_link: # GNSS/INS
-  #   x: 0.0
-  #   y: 0.0
-  #   z: 0.0
-  #   roll: 0.0
-  #   pitch: 0.0
-  #   yaw: 0.0
+
