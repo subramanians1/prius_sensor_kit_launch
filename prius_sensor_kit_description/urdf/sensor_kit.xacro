@@ -6,6 +6,7 @@
     <xacro:include filename="$(find ouster_description)/urdf/OS1-128.urdf.xacro"/>
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
     <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
+    <!-- <xacro:include filename="$(find oxts_ins)/urdf/small_core.urdf.xml"/> -->
 
     <xacro:arg name="gpu" default="false"/>
     <xacro:arg name="config_dir" default="$(find prius_sensor_kit_description)/config"/>
@@ -112,19 +113,30 @@
       fov="1.3"
     /> -->
     <!-- gnss -->
-    <!-- <xacro:imu_macro
-      name="gnss"
+    <xacro:OxTS
+      name="navsat"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['gnss_ins_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['gnss_ins_link]['y']}"
-      z="${calibration['sensor_kit_base_link']['gnss_ins_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['gnss_ins_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['gnss_ins_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['gnss_ins_link']['yaw']}"
+      x="-0.25"
+      y="0"
+      z="1"
+      roll="0"
+      pitch="0"
+      yaw="0"
       fps="100"
-    /> -->
-
+    />  
+    <xacro:OxTS
+      parent="sensor_kit_base_link"
+      name="imu"
+      namespace="" 
+      fps="100"
+      x="-1"
+      y="0"
+      z="0"
+      roll="0"
+      pitch="0"
+      yaw="0"  
+    /> 
     
   </xacro:macro>
 </robot>
