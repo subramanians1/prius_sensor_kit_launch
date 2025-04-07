@@ -16,13 +16,13 @@
         <!-- <arg name="lidar_port" value=""/> -->
         <!-- <arg name="imu_port" value="0"/> -->
         <arg name="sensor_frame" value="os1_top"/>
-        <arg name="lidar_frame" value="base_link"/>
+        <arg name="lidar_frame" value="os_lidar"/>
         <!-- <arg name="imu_frame" value="os_imu"/> -->
         <!-- <arg name="point_cloud_frame" value="os_lidar"/> -->
-        <arg name="lidar_frame" value="base_link"/>
+        <!-- <arg name="lidar_frame" value="base_link"/> -->
         <!-- <arg name="imu_frame" value="os_imu"/> -->
         <!-- <arg name="point_cloud_frame" value="os_lidar"/> -->
-        <arg name="point_type" value = "xyzir"/>        
+        <arg name="point_type" value = "original"/>        
         <!-- <arg name="min_range" value="0.0"/> -->
         <!-- <arg name="max_range" value="75.0"/>                -->
         <!-- <arg name="min_range" value="0.0"/> -->

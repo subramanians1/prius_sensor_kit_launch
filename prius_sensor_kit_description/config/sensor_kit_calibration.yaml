@@ -5,7 +5,7 @@ sensor_kit_base_link:
     z: 0.0
     roll: 0.0
     pitch: 0.0
-    yaw: 3.1415
+    yaw: 0.0
   imu_link: # INS-IMU
     x: -1.0
     y: 0.0
