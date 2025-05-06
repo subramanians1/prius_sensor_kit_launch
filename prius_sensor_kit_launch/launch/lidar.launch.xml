@@ -15,9 +15,9 @@
         <arg name="sensor_hostname" value="192.168.2.221"/>
         <!-- <arg name="lidar_port" value=""/> -->
         <!-- <arg name="imu_port" value="0"/> -->
-        <arg name="sensor_frame" value="os1_top"/>
+        <arg name="sensor_frame" value="os_sensor"/>
         <arg name="lidar_frame" value="os_lidar"/>
-        <!-- <arg name="imu_frame" value="os_imu"/> -->
+        <arg name="imu_frame" value="imu_link"/>
         <!-- <arg name="point_cloud_frame" value="os_lidar"/> -->
         <!-- <arg name="lidar_frame" value="base_link"/> -->
         <!-- <arg name="imu_frame" value="os_imu"/> -->

@@ -5,11 +5,13 @@
   <include file="$(find-pkg-share oxts)/launch/run.py">
     <arg name="unit_ip" value="192.168.2.50"/>
     <arg name="topic_prefix" value="oxts"/>
-    <arg name="frame_id" value="imu_link"/>
+    <!-- <arg name="frame_id" value="imu_link"/> -->
+    <arg name="frame_id" value="oxts_imu"/>
   </include> 
 
   <!-- Switch topic name -->
-    <let name="imu_topic_name" value="/sensing/$(var topic_prefix)/imu"/>
+    <!-- <let name="imu_topic_name" value="/sensing/$(var topic_prefix)/imu"/> -->
+    <let name="imu_topic_name" value="/sensing/lidar/top/ouster/imu"/>
 
   <group>
     <push-ros-namespace namespace="imu"/>
