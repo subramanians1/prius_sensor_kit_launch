@@ -15,14 +15,15 @@
         <arg name="sensor_hostname" value="192.168.2.221"/>
         <!-- <arg name="lidar_port" value=""/> -->
         <!-- <arg name="imu_port" value="0"/> -->
-        <arg name="sensor_frame" value="os_sensor"/>
-        <arg name="lidar_frame" value="os_lidar"/>
-        <arg name="imu_frame" value="imu_link"/>
+        <!-- <arg name="sensor_frame" value="os_sensor"/>
+        <arg name="lidar_frame" value="os_lidar"/> -->
+        <!-- <arg name="imu_frame" value="imu_link"/> -->
         <!-- <arg name="point_cloud_frame" value="os_lidar"/> -->
         <!-- <arg name="lidar_frame" value="base_link"/> -->
         <!-- <arg name="imu_frame" value="os_imu"/> -->
         <!-- <arg name="point_cloud_frame" value="os_lidar"/> -->
-        <arg name="point_type" value = "original"/>        
+        <arg name="point_type" value = "original"/>   
+        <arg name="lidar_mode" value = "1024x20"/>     
         <!-- <arg name="min_range" value="0.0"/> -->
         <!-- <arg name="max_range" value="75.0"/>                -->
         <!-- <arg name="min_range" value="0.0"/> -->
@@ -31,19 +32,20 @@
       
       <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_node_container.launch.py">
       <arg name="base_frame" value="base_link"/>
-      <arg name="frame_id" value="base_link"/>s
+      <arg name="frame_id" value="sensor_kit_base_link"/>s
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
       <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/> 
       <arg name="container_name" value="$(var pointcloud_container_name)"/>
       <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
     </include>
+      <!-- <remap from="pointcloud_before_sync" to="/sensing/lidar/concatenated/pointcloud" /> -->
     </group> 
 
     
 
     <include file="$(find-pkg-share prius_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
-      <arg name="base_frame" value="base_link"/>
+      <arg name="base_frame" value="sensor_kit_base_link"/>
       <arg name="use_intra_process" value="true"/>
       <arg name="use_multithread" value="true"/>
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
