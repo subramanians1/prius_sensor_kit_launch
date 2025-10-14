@@ -6,6 +6,7 @@
     <xacro:include filename="$(find ouster_description)/urdf/OS1-128.urdf.xacro"/>
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
     <xacro:include filename="$(find oxts_ins)/urdf/OxTS.xacro"/>
+    <xacro:include filename="$(find radar_description)/urdf/radar.xacro"/>
     <!-- <xacro:include filename="$(find oxts_ins)/urdf/small_core.urdf.xml"/> -->
 
     <xacro:arg name="gpu" default="false"/>
@@ -37,6 +38,7 @@
       />
     </xacro:OS1-128> 
 
+    <!-- INS -->
     <xacro:OxTS
       name="navsat"
       parent="sensor_kit_base_link"
@@ -62,15 +64,7 @@
       yaw="${calibration['sensor_kit_base_link']['imu_link']['yaw']}"  
     /> 
 
-    <!-- <xacro:OS1-128 parent="sensor_kit_base_link" name="os1_top" topic_points="/points_raw" hz="10" samples="220">
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 3.1415"
-      />
-    </xacro:OS1-128>    -->
-
-    <!-- camera -->
-    
+    <!-- camera -->    
     <xacro:monocular_camera_macro
       name="traffic_light_left_camera/camera"
       parent="sensor_kit_base_link"
@@ -88,91 +82,52 @@
     />
 
     <!-- radar -->
-    <!-- <xacro:ars548_macro
-      name="ars548_frh"
+    <xacro:radar_macro
+      name="radar_front_link"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['y']}"
-      z="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['ars548_frh_base_link']['yaw']}"
-      fps="30"
-      width="800"
-      height="400"
-      fov="1.3"
-    /> -->
-    <!-- <xacro:ars548_macro
-      name="ars548_flh"
+      x="${calibration['sensor_kit_base_link']['radar_front_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['radar_front_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['radar_front_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['radar_front_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['radar_front_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['radar_front_link']['yaw']}"
+    />
+    <xacro:radar_macro
+      name="radar_left_link"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['y']}"
-      z="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['ars548_flh_base_link']['yaw']}"
-      fps="30"
-      width="800"
-      height="400"
-      fov="1.3"
-    /> -->
-    <!-- <xacro:ars548_macro
-      name="ars548_rrh"
+      x="${calibration['sensor_kit_base_link']['radar_left_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['radar_left_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['radar_left_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['radar_left_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['radar_left_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['radar_left_link']['yaw']}"
+    />
+    <xacro:radar_macro
+      name="radar_rear_link"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['y']}"
-      z="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['ars548_rrh_base_link']['yaw']}"
-      fps="30"
-      width="800"
-      height="400"
-      fov="1.3"
-    /> -->
-    <!-- <xacro:ars548_macro
-      name="ars548_rlh"
+      x="${calibration['sensor_kit_base_link']['radar_rear_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['radar_rear_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['radar_rear_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['radar_rear_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['radar_rear_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['radar_rear_link']['yaw']}"
+    />
+    <xacro:radar_macro
+      name="radar_right_link"
       parent="sensor_kit_base_link"
       namespace=""
-      x="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['x']}"
-      y="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['y']}"
-      z="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['z']}"
-      roll="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['roll']}"
-      pitch="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['pitch']}"
-      yaw="${calibration['sensor_kit_base_link']['ars548_rlh_base_link']['yaw']}"
-      fps="30"
-      width="800"
-      height="400"
-      fov="1.3"
-    /> -->
-    <!-- gnss --> 
-    <!-- <xacro:OxTS
-      name="navsat"
-      parent="sensor_kit_base_link"
-      namespace=""
-      x="-0.25"
-      y="0"
-      z="0"
-      roll="0"
-      pitch="0"
-      yaw="0"
-      fps="100"
-    />  
-    <xacro:OxTS
-      parent="sensor_kit_base_link"
-      name="imu"
-      namespace="" 
-      fps="100"
-      x="0"
-      y="0"
-      z="0"
-      roll="0"
-      pitch="0"
-      yaw="0"  
-    />  -->
+      x="${calibration['sensor_kit_base_link']['radar_right_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['radar_right_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['radar_right_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['radar_right_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['radar_right_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['radar_right_link']['yaw']}"
+    />
+    
+    
     
   </xacro:macro>
 </robot>
