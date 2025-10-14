@@ -17,7 +17,7 @@
     <arg name = "lidar_frame" default = "os_lidar"/>
     <arg name = "imu_frame" default = "os_imu"/>
     <arg name = "point_cloud_frame" default = "os_lidar"/>
-    <arg name = "pub_static_tf" default = "true"/>
+    <arg name = "pub_static_tf" default = "false"/>
     <arg name = "proc_mask" default = "IMU|PCL|SCAN|IMG|RAW"/>
     <arg name = "scan_ring" default = "0"/>
     <arg name = "use_system_default_qos" default = "true"/>
