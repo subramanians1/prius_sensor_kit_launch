@@ -3,6 +3,7 @@
   <arg name="vehicle_mirror_param_file"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
   <arg name="use_distortion_corrector" default="true"/>
+  <arg name="launch_driver" default="true"/>
 
   <group>
     <push-ros-namespace namespace="radar"/>
@@ -10,44 +11,33 @@
     <group>
       <push-ros-namespace namespace="front"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
-        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
-        <arg name="use_distortion_corrector" value="$(var use_distortion_corrector)"/>
-        <arg name="container_name" value="pointcloud_container"/>
+        <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_front_config.yaml"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
       </include>
     </group>
 
     <group>
       <push-ros-namespace namespace="left"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
-        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
-        <arg name="use_distortion_corrector" value="$(var use_distortion_corrector)"/>
-        <arg name="container_name" value="pointcloud_container"/>
+        <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_left_config.yaml"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
       </include>
     </group>
 
     <group>
       <push-ros-namespace namespace="rear"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
-        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
-        <arg name="use_distortion_corrector" value="$(var use_distortion_corrector)"/>
-        <arg name="container_name" value="pointcloud_container"/>
+        <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_rear_config.yaml"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
       </include>
     </group>
 
     <group>
       <push-ros-namespace namespace="right"/>
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
-        <arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
-        <arg name="use_distortion_corrector" value="$(var use_distortion_corrector)"/>
-        <arg name="container_name" value="pointcloud_container"/>
+        <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_right_config.yaml"/>
+        <arg name="launch_driver" value="$(var launch_driver)"/>
       </include>
     </group>
-
-    <include file="$(find-pkg-share awsim_labs_sensor_kit_launch)/launch/pointcloud_preprocessor.launch.py">
-      <arg name="base_frame" value="base_link"/>
-      <arg name="use_intra_process" value="true"/>
-      <arg name="use_multithread" value="true"/>
-      <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
-    </include>
   </group>
 </launch>
