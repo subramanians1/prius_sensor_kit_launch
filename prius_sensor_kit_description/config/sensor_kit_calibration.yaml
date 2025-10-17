@@ -35,31 +35,31 @@ sensor_kit_base_link:
     pitch: 0
     yaw: 0
   radar_front_link: # Radar Front
-    x: -0.12
-    y: 0.0
-    z: -0.12
-    roll: 0.008
-    pitch: -0.01
-    yaw: 3.141592
-  radar_left_link: # Radar Left
-    x: -0.165
-    y: -0.5825
-    z: -0.265
-    roll: 0.0
-    pitch: -0.025
-    yaw: -1.53
-  radar_rear_link: # Radar Rear
     x: 0.12
     y: 0.0
-    z: -0.12
+    z: -0.034
+    roll: 0.008
+    pitch: -0.01
+    yaw: 0.00
+  radar_left_link: # Radar Left
+    x: 0.165
+    y: 0.583
+    z: -0.179
+    roll: 0.0
+    pitch: -0.025
+    yaw: 1.612
+  radar_rear_link: # Radar Rear
+    x: -0.12
+    y: 0.0
+    z: -0.034
     roll: 0.008
     pitch: -0.005
-    yaw: 0.008
+    yaw: -3.133
   radar_right_link: # Radar Right
-    x: -0.165
-    y: 0.5825
-    z: -0.265
+    x: 0.165
+    y: -0.582
+    z: -0.179
     roll: 0.0
     pitch: 0.05
-    yaw: 1.515
+    yaw: -1.626
 
