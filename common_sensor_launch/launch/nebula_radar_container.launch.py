@@ -28,7 +28,9 @@ def launch_setup(context, *args, **kwargs):
         return result
     
     # Model and Make
+    
     sensor_model = LaunchConfiguration("sensor_model").perform(context)
+    
     sensor_make = get_radar_make(sensor_model)
 
     # Config file
@@ -59,7 +61,7 @@ def launch_setup(context, *args, **kwargs):
             parameters=[
                 params_from_file,
                 {
-                    "sensor_model": sensor_model,
+                    # "sensor_model": sensor_model,
                     "launch_hw": LaunchConfiguration("launch_hw")
                 }                
             ],
@@ -71,6 +73,18 @@ def launch_setup(context, *args, **kwargs):
             ]
         )
     )
+
+    # set container to run all required components in the same process
+    container = ComposableNodeContainer(
+        name=LaunchConfiguration("container_name"),
+        namespace="radar_namespace",
+        package="rclcpp_components",
+        executable=LaunchConfiguration("container_executable"),
+        composable_node_descriptions=nodes,
+        output="both",
+    )
+
+    return [container]
 
 def generate_launch_description():
     launch_arguments = []
@@ -103,7 +117,8 @@ def generate_launch_description():
     # add_launch_arg("configuration_vehicle_width", "1.77", "vehicle width")
     # add_launch_arg("configuration_vehicle_height", "1.49", "vehicle height")
     # add_launch_arg("configuration_vehicle_wheelbase", "2.70", "vehicle wheelbase")
-    # add_launch_arg("use_multithread", "false", "use multithread")
+    add_launch_arg("use_multithread", "false", "use multithread")
+    add_launch_arg("container_name", "radar_container")
 
     set_container_executable = SetLaunchConfiguration(
         "container_executable",
