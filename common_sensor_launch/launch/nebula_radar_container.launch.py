@@ -33,7 +33,19 @@ def launch_setup(context, *args, **kwargs):
     
     sensor_make = get_radar_make(sensor_model)
 
-    # Config file
+    # Node parameter configs
+    threshold_filter_node_param = ParameterFile(
+        param_file=LaunchConfiguration("threshold_filter_node_param_path").perform(context),
+        allow_substs=True,
+    )
+    static_filter_node_param = ParameterFile(
+        param_file=LaunchConfiguration("static_filter_node_param_path").perform(context),
+        allow_substs=True        
+    )
+    pcd2_message_converter_param = ParameterFile(
+        param_file=LaunchConfiguration("pcd2_message_converter_param_path").perform(context),
+        allow_substs=True
+    )
     # Inside launch_setup(...)
     config_file = LaunchConfiguration("config_file").perform(context)
     if not config_file:
@@ -70,6 +82,49 @@ def launch_setup(context, *args, **kwargs):
                 ("odometry_input", LaunchConfiguration("odometry_topic")),
                 ("acceleration_input", LaunchConfiguration("acceleration_topic")),
                 ("steering_angle_input", LaunchConfiguration("steering_angle_topic")),
+            ]
+        )
+    )
+
+    nodes.append(
+        ComposableNode(
+            package="autoware_radar_threshold_filter",
+            plugin="autoware::radar_threshold_filter::RadarThresholdFilterNode",
+            name="radar_threshold_filter",
+            parameters=[threshold_filter_node_param],
+            remappings=[
+                ("~/input/radar", "scan_raw"),
+                ("~/output/radar", "scan_filtered")
+            ]
+        )
+    )
+
+    nodes.append(
+        ComposableNode(
+            package="autoware_radar_static_pointcloud_filter",
+            plugin="autoware::radar_static_pointcloud_filter::RadarStaticPointcloudFilterNode",
+            name="radar_static_pointcloud_filter",
+            parameters=[static_filter_node_param],
+            remappings=[
+                ("~/input/radar", "scan_filtered"),
+                ("~/input/odometry", "/localization/kinematic_state"),
+                ("~/output/static_radar_scan", "static_radar_scan"),
+                ("~/output/dynamic_radar_scan", "dynamic_radar_scan")
+            ]
+
+        )
+    )
+
+    nodes.append(
+        ComposableNode(
+            package="autoware_radar_scan_to_pointcloud2",
+            plugin="autoware::radar_scan_to_pointcloud2::RadarScanToPointcloud2Node",
+            name="pcd2_message_converter",
+            parameters=[pcd2_message_converter_param],
+            remappings=[
+                ("~/input/radar", "scan_filtered"),
+                ("~/output/amplitude_pointcloud", "amplitude_pointcloud"),
+                ("~/output/doppler_pointcloud", "doppler_pointcloud")
             ]
         )
     )
@@ -119,6 +174,34 @@ def generate_launch_description():
     # add_launch_arg("configuration_vehicle_wheelbase", "2.70", "vehicle wheelbase")
     add_launch_arg("use_multithread", "false", "use multithread")
     add_launch_arg("container_name", "radar_container")
+    add_launch_arg(
+        "threshold_filter_node_param_path",
+        os.path.join(
+            common_sensor_share_dir,
+            "config",
+            "radar_threshold_filter.param.yaml"
+        ),
+        description="path to parameter file of radar threshold filter node"
+    )
+    add_launch_arg(
+        "static_filter_node_param_path",
+        os.path.join(
+            common_sensor_share_dir,
+            "config",
+            "radar_static_pointcloud_filter.param.yaml"
+        ),
+        description="path to parameter file of radar static filter node"
+    )
+    add_launch_arg(
+        "pcd2_message_converter_param_path",
+        os.path.join(
+            common_sensor_share_dir,
+            "config",
+            "radar_scan_to_pointcloud2.param.yaml"
+        ),
+        description="path to parameter file of radar scan to pointcloud2 converter node"
+    )
+    
 
     set_container_executable = SetLaunchConfiguration(
         "container_executable",

@@ -13,7 +13,6 @@
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_front_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
-        <!-- <arg name="launch_driver" value="true"/> -->
       </include>
     </group>
 
