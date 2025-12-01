@@ -1,0 +1,13 @@
+/**:
+  ros__parameters:
+    output_frame: base_link
+    has_static_tf_only: true
+    input_topics: [
+                    "/sensing/radar/front/pointcloud/amplitude_pointcloud",
+                    "/sensing/radar/left/pointcloud/amplitude_pointcloud",
+                    "/sensing/radar/rear/pointcloud/amplitude_pointcloud",
+                    "/sensing/radar/right/pointcloud/amplitude_pointcloud"
+                ]
+    max_queue_size: 5
+    timeout_sec: 0.11
+    input_offset: [0.0 ,0.0 ,0.0,0.0]

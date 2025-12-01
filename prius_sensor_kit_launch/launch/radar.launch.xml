@@ -4,6 +4,13 @@
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
   <arg name="use_distortion_corrector" default="true"/> -->
   <arg name="launch_driver" default="true"/>
+  <arg name="radar_container_name" default="radar_container"/>
+  <arg name="use_simple_object_merger" default="True"/>
+  <arg name="pipeline_type" default="pointcloud" description="Choice of radar pre-processing pipeline. Possible choices: pointcloud, tracks, both">
+        <choice value="pointcloud"/>
+        <choice value="tracks"/>
+        <choice value="both"/>
+  </arg>
 
   <group>
     <push-ros-namespace namespace="radar"/>
@@ -13,6 +20,8 @@
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_front_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="radar_container_name" value="$(var radar_container_name)"/>
+        <arg name="pipeline_type" value="$(var pipeline_type)"/>
       </include>
     </group>
 
@@ -21,6 +30,8 @@
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_left_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="radar_container_name" value="$(var radar_container_name)"/>
+        <arg name="pipeline_type" value="$(var pipeline_type)"/>
       </include>
     </group>
 
@@ -29,6 +40,8 @@
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_rear_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="radar_container_name" value="$(var radar_container_name)"/>
+        <arg name="pipeline_type" value="$(var pipeline_type)"/>
       </include>
     </group>
 
@@ -37,7 +50,24 @@
       <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_right_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
+        <arg name="radar_container_name" value="$(var radar_container_name)"/>
+        <arg name="pipeline_type" value="$(var pipeline_type)"/>
       </include>
+    </group>
+
+    <group if="$(eval &quot; '$(var pipeline_type)'=='tracks'&quot;)">
+      <node pkg="autoware_simple_object_merger" exec="simple_object_merger_node" name="simple_object_merger" output="screen">
+        <remap from="~/output/objects" to="merged_detected_objects"/>
+        <param from="$(find-pkg-share prius_sensor_kit_launch)/config/simple_object_merger.param.yaml"/>
+      </node>
+    </group>
+
+    <group if="$(eval &quot; '$(var pipeline_type)'=='pointcloud'&quot;)">
+     <node pkg="autoware_pointcloud_preprocessor" exec="concatenate_data_node" name="concatenate_data" output="screen">
+      <remap from="~/input/twist" to="/sensing/vehicle_velocity_converter/twist_with_covariance"/>
+      <remap from="output" to="concatenated/pointcloud"/>
+      <param from="$(find-pkg-share prius_sensor_kit_launch)/config/concatenate_pointclouds.param.yaml"/>
+     </node>
     </group>
   </group>
 </launch>

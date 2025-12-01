@@ -34,19 +34,17 @@ def launch_setup(context, *args, **kwargs):
     sensor_make = get_radar_make(sensor_model)
 
     # Node parameter configs
-    threshold_filter_node_param = ParameterFile(
-        param_file=LaunchConfiguration("threshold_filter_node_param_path").perform(context),
-        allow_substs=True,
-    )
-    static_filter_node_param = ParameterFile(
-        param_file=LaunchConfiguration("static_filter_node_param_path").perform(context),
-        allow_substs=True        
-    )
-    pcd2_message_converter_param = ParameterFile(
-        param_file=LaunchConfiguration("pcd2_message_converter_param_path").perform(context),
+    noise_filter_node_param = ParameterFile(
+        param_file=LaunchConfiguration("noise_filter_node_param_path").perform(context),
         allow_substs=True
     )
-    # Inside launch_setup(...)
+
+    msg_converter_node_param = ParameterFile(
+        param_file=LaunchConfiguration("msg_converter_node_param_path").perform(context),
+        allow_substs=True
+    )
+
+    # Driver config
     config_file = LaunchConfiguration("config_file").perform(context)
     if not config_file:
         # optional fallback like XML default; safe to keep empty if you prefer only explicit passing
@@ -54,7 +52,7 @@ def launch_setup(context, *args, **kwargs):
         config_file = os.path.join(nebula_share, "config", "radar", "continental", f"{sensor_model}.param.yaml")
 
     params_from_file = ParameterFile(param_file=config_file, allow_substs=True)
-
+ 
     nodes = []
 
     nodes.append(
@@ -78,7 +76,7 @@ def launch_setup(context, *args, **kwargs):
                 }                
             ],
             remappings=[
-                ("/diagnostics", "/diagnostics"),
+                ("/diagnostics", "diagnostics"),
                 ("odometry_input", LaunchConfiguration("odometry_topic")),
                 ("acceleration_input", LaunchConfiguration("acceleration_topic")),
                 ("steering_angle_input", LaunchConfiguration("steering_angle_topic")),
@@ -88,51 +86,39 @@ def launch_setup(context, *args, **kwargs):
 
     nodes.append(
         ComposableNode(
-            package="autoware_radar_threshold_filter",
-            plugin="autoware::radar_threshold_filter::RadarThresholdFilterNode",
-            name="radar_threshold_filter",
-            parameters=[threshold_filter_node_param],
+            package="autoware_radar_tracks_noise_filter",
+            plugin="autoware::radar_tracks_noise_filter::RadarTrackCrossingNoiseFilterNode",
+            name="radar_tracks_noise_filter",
+            parameters=[noise_filter_node_param],
             remappings=[
-                ("~/input/radar", "scan_raw"),
-                ("~/output/radar", "scan_filtered")
+                ("~/input/tracks", "objects_raw"),
+                ("~/output/noise_tracks", "noise_tracks"),
+                ("~/output/filtered_tracks", "filtered_tracks")
             ]
         )
     )
 
     nodes.append(
         ComposableNode(
-            package="autoware_radar_static_pointcloud_filter",
-            plugin="autoware::radar_static_pointcloud_filter::RadarStaticPointcloudFilterNode",
-            name="radar_static_pointcloud_filter",
-            parameters=[static_filter_node_param],
+            package="autoware_radar_tracks_msgs_converter",
+            plugin="autoware::radar_tracks_msgs_converter::RadarTracksMsgsConverterNode",
+            name="radar_tracks_msgs_converter",
+            parameters=[msg_converter_node_param],
             remappings=[
-                ("~/input/radar", "scan_filtered"),
+                ("~/input/radar_objects", "filtered_tracks"),
                 ("~/input/odometry", "/localization/kinematic_state"),
-                ("~/output/static_radar_scan", "static_radar_scan"),
-                ("~/output/dynamic_radar_scan", "dynamic_radar_scan")
+                ("~/output/radar_detected_objects", "radar_detected_objects"),
+                ("~/output/radar_tracked_objects", "radar_tracked_objects")
             ]
 
         )
     )
 
-    nodes.append(
-        ComposableNode(
-            package="radar_scan_to_xyzirc_pointcloud2",
-            plugin="autoware::radar_scan_to_xyzirc_pointcloud2::RadarScanToXYZIRCPointcloud2Node",
-            name="pcd2_message_converter",
-            parameters=[pcd2_message_converter_param],
-            remappings=[
-                ("~/input/radar", "scan_filtered"),
-                ("~/output/amplitude_pointcloud", "amplitude_pointcloud"),
-                ("~/output/doppler_pointcloud", "doppler_pointcloud")
-            ]
-        )
-    )
 
     # set container to run all required components in the same process
     container = ComposableNodeContainer(
         name=LaunchConfiguration("radar_container_name"),
-        namespace="radar_scan_processor",
+        namespace="radar_tracks_processor",
         package="rclcpp_components",
         executable=LaunchConfiguration("container_executable"),
         composable_node_descriptions=nodes,
@@ -175,31 +161,22 @@ def generate_launch_description():
     add_launch_arg("use_multithread", "false", "use multithread")
     add_launch_arg("radar_container_name", "radar_container")
     add_launch_arg(
-        "threshold_filter_node_param_path",
+        "noise_filter_node_param_path",
         os.path.join(
             common_sensor_share_dir,
             "config",
-            "radar_threshold_filter.param.yaml"
+            "radar_tracks_noise_filter.param.yaml"
         ),
-        description="path to parameter file of radar threshold filter node"
+        description="path to parameter file of radar tracks noise filter node"
     )
     add_launch_arg(
-        "static_filter_node_param_path",
+        "msg_converter_node_param_path",
         os.path.join(
             common_sensor_share_dir,
             "config",
-            "radar_static_pointcloud_filter.param.yaml"
+            "radar_tracks_msgs_converter.param.yaml"
         ),
-        description="path to parameter file of radar static filter node"
-    )
-    add_launch_arg(
-        "pcd2_message_converter_param_path",
-        os.path.join(
-            common_sensor_share_dir,
-            "config",
-            "radar_scan_to_pointcloud2.param.yaml"
-        ),
-        description="path to parameter file of radar scan to pointcloud2 converter node"
+        description="path to parameter file of radar tracks message converter node"
     )
     
 

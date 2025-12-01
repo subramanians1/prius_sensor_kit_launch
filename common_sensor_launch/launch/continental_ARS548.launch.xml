@@ -9,14 +9,34 @@
     <arg name="odometry_topic" default="odometry_input"/>
     <arg name="acceleration_topic" default="acceleration_input"/>
     <arg name="steering_angle_topic" default="steering_angle_input"/>
+    <arg name="pipeline_type" default="pointcloud" description="Choice of radar pre-processing pipeline. Possible choices: pointcloud, tracks, both">
+        <choice value="pointcloud"/>
+        <choice value="tracks"/>
+        <choice value="both"/>
+    </arg>
     
-    <!-- Launch Node Container -->
-    <include file="$(find-pkg-share common_sensor_launch)/launch/nebula_radar_container.launch.py">
-        <arg name="config_file" value="$(var config_file)"/>
-        <arg name="sensor_model" value="ARS548"/>
-        <arg name="launch_hw" value="$(var launch_driver)"/>
-        <arg name="odometry_topic" value="$(var odometry_topic)"/>
-        <arg name="acceleration_topic" value="$(var acceleration_topic)"/>
-        <arg name="steering_angle_topic" value="$(var steering_angle_topic)"/>
-    </include>
+    <!-- Launch appropriate node container -->
+    <group if="$(eval &quot;'$(var pipeline_type)'=='tracks'&quot;)">
+        <push-ros-namespace namespace="tracks"/>
+        <include file="$(find-pkg-share common_sensor_launch)/launch/nebula_radar_tracks_container.launch.py">
+            <arg name="config_file" value="$(var config_file)"/>
+            <arg name="sensor_model" value="ARS548"/>
+            <arg name="launch_hw" value="$(var launch_driver)"/>
+            <arg name="odometry_topic" value="$(var odometry_topic)"/>
+            <arg name="acceleration_topic" value="$(var acceleration_topic)"/>
+            <arg name="steering_angle_topic" value="$(var steering_angle_topic)"/>
+        </include>
+    </group>
+
+    <group if="$(eval &quot;'$(var pipeline_type)'=='pointcloud'&quot;)">
+        <push-ros-namespace namespace="pointcloud"/>
+        <include file="$(find-pkg-share common_sensor_launch)/launch/nebula_radar_container.launch.py">
+            <arg name="config_file" value="$(var config_file)"/>
+            <arg name="sensor_model" value="ARS548"/>
+            <arg name="launch_hw" value="$(var launch_driver)"/>
+            <arg name="odometry_topic" value="$(var odometry_topic)"/>
+            <arg name="acceleration_topic" value="$(var acceleration_topic)"/>
+            <arg name="steering_angle_topic" value="$(var steering_angle_topic)"/>
+        </include>
+    </group>
 </launch>
