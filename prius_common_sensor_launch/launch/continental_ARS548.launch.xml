@@ -18,7 +18,7 @@
     <!-- Launch appropriate node container -->
     <group if="$(eval &quot;'$(var pipeline_type)'=='tracks'&quot;)">
         <push-ros-namespace namespace="tracks"/>
-        <include file="$(find-pkg-share common_sensor_launch)/launch/nebula_radar_tracks_container.launch.py">
+        <include file="$(find-pkg-share prius_common_sensor_launch)/launch/nebula_radar_tracks_container.launch.py">
             <arg name="config_file" value="$(var config_file)"/>
             <arg name="sensor_model" value="ARS548"/>
             <arg name="launch_hw" value="$(var launch_driver)"/>
@@ -30,7 +30,7 @@
 
     <group if="$(eval &quot;'$(var pipeline_type)'=='pointcloud'&quot;)">
         <push-ros-namespace namespace="pointcloud"/>
-        <include file="$(find-pkg-share common_sensor_launch)/launch/nebula_radar_container.launch.py">
+        <include file="$(find-pkg-share prius_common_sensor_launch)/launch/nebula_radar_container.launch.py">
             <arg name="config_file" value="$(var config_file)"/>
             <arg name="sensor_model" value="ARS548"/>
             <arg name="launch_hw" value="$(var launch_driver)"/>

@@ -150,7 +150,7 @@ def generate_launch_description():
             DeclareLaunchArgument(name, default_value=default_value, description=description)
         )
     
-    common_sensor_share_dir = get_package_share_directory("common_sensor_launch")
+    common_sensor_share_dir = get_package_share_directory("prius_common_sensor_launch")
 
     add_launch_arg("config_file", "", "path to radar config yaml")
     add_launch_arg("odometry_topic", "odometry_input", "odometry topic")

@@ -11,7 +11,7 @@
 
     <group>
       <push-ros-namespace namespace="top"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_OS1.launch.xml">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/ouster_OS1.launch.xml">
         <arg name="sensor_hostname" value="192.168.2.221"/>
         <!-- <arg name="lidar_port" value=""/> -->
         <!-- <arg name="imu_port" value="0"/> -->
@@ -30,7 +30,7 @@
         <!-- <arg name="max_range" value="75.0"/>                -->
       </include>
       
-      <include file="$(find-pkg-share common_sensor_launch)/launch/ouster_node_container.launch.py">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/ouster_node_container.launch.py">
       <arg name="base_frame" value="base_link"/>
       <arg name="frame_id" value="sensor_kit_base_link"/>s
       <arg name="use_intra_process" value="true"/>

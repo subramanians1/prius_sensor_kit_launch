@@ -188,7 +188,7 @@ def generate_launch_description():
             DeclareLaunchArgument(name, default_value=default_value, description=description)
         )
 
-    common_sensor_share_dir = get_package_share_directory("common_sensor_launch")
+    common_sensor_share_dir = get_package_share_directory("prius_common_sensor_launch")
 
     add_launch_arg("base_frame", "base_link", "base frame id")
     add_launch_arg("output_as_sensor_frame", "true", "to use ring_outlier_filter")

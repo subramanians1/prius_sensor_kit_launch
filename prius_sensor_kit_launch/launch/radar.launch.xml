@@ -17,7 +17,7 @@
 
     <group>
       <push-ros-namespace namespace="front"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_front_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
         <arg name="radar_container_name" value="$(var radar_container_name)"/>
@@ -27,7 +27,7 @@
 
     <group>
       <push-ros-namespace namespace="left"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_left_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
         <arg name="radar_container_name" value="$(var radar_container_name)"/>
@@ -37,7 +37,7 @@
 
     <group>
       <push-ros-namespace namespace="rear"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_rear_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
         <arg name="radar_container_name" value="$(var radar_container_name)"/>
@@ -47,7 +47,7 @@
 
     <group>
       <push-ros-namespace namespace="right"/>
-      <include file="$(find-pkg-share common_sensor_launch)/launch/continental_ARS548.launch.xml">
+      <include file="$(find-pkg-share prius_common_sensor_launch)/launch/continental_ARS548.launch.xml">
         <arg name="config_file" value="$(find-pkg-share prius_sensor_kit_description)/config/radar_config/radar_right_config.yaml"/>
         <arg name="launch_driver" value="$(var launch_driver)"/>
         <arg name="radar_container_name" value="$(var radar_container_name)"/>
