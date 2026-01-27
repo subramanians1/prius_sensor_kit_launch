@@ -66,8 +66,8 @@ def launch_setup(context, *args, **kwargs):
 
     nodes.append(
         ComposableNode(
-            package="glog_component",
-            plugin="GlogComponent",
+            package="autoware_glog_component",
+            plugin="autoware::glog_component::GlogComponent",
             name="glog_component",
         )
     )
@@ -86,6 +86,8 @@ def launch_setup(context, *args, **kwargs):
 
     cropbox_parameters = create_parameter_dict("input_frame", "output_frame")
     cropbox_parameters["negative"] = True
+    cropbox_parameters["processing_time_threshold_sec"] = 0.01
+
 
     vehicle_info = get_vehicle_info(context)
     cropbox_parameters["min_x"] = vehicle_info["min_longitudinal_offset"]

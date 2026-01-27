@@ -16,7 +16,7 @@
   <group>
     <push-ros-namespace namespace="imu"/>
 
-    <arg name="imu_corrector_param_file" default="$(find-pkg-share individual_params)/config/$(var vehicle_id)/prius_sensor_kit/imu_corrector.param.yaml"/>
+    <arg name="imu_corrector_param_file" default="$(find-pkg-share prius_sensor_kit_description)/config/imu_corrector.param.yaml"/>
 
     <include file="$(find-pkg-share autoware_imu_corrector)/launch/imu_corrector.launch.xml">
       <arg name="input_topic" value="$(var imu_topic_name)"/>
