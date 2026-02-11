@@ -32,7 +32,7 @@
     <include file="$(find-pkg-share prius_sensor_kit_launch)/launch/radar.launch.xml">
       <arg name="launch_driver" value="$(var launch_driver)"/>
       <arg name="radar_container_name" value="$(var radar_container_name)"/>
-      <arg name="pipeline_type" value="pointcloud"/>
+      <arg name="pipeline_type" value="tracks"/>
     </include>
 
     <!-- Vehicle Velocity Converter  -->

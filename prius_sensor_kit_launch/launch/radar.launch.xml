@@ -4,9 +4,9 @@
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
   <arg name="use_distortion_corrector" default="true"/> -->
   <arg name="launch_driver" default="true"/>
-  <arg name="radar_container_name" default="radar_container"/>
+  <arg name="radar_container_name" default="radar_container" description=""/>
   <arg name="use_simple_object_merger" default="True"/>
-  <arg name="pipeline_type" default="pointcloud" description="Choice of radar pre-processing pipeline. Possible choices: pointcloud, tracks, both">
+  <arg name="pipeline_type" default="tracks" description="Choice of radar pre-processing pipeline. Possible choices: pointcloud, tracks, both">
         <choice value="pointcloud"/>
         <choice value="tracks"/>
         <choice value="both"/>
@@ -57,7 +57,7 @@
 
     <group if="$(eval &quot; '$(var pipeline_type)'=='tracks'&quot;)">
       <node pkg="autoware_simple_object_merger" exec="simple_object_merger_node" name="simple_object_merger" output="screen">
-        <remap from="~/output/objects" to="merged_detected_objects"/>
+        <remap from="~/output/objects" to="detected_objects"/>
         <param from="$(find-pkg-share prius_sensor_kit_launch)/config/simple_object_merger.param.yaml"/>
       </node>
     </group>
