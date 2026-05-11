@@ -65,7 +65,7 @@ def launch_setup(context, *args, **kwargs):
 
     nodes.append(
         ComposableNode(
-            package="nebula_ros",
+            package="nebula_continental",
             plugin=sensor_make + sensor_model.upper() + "RosWrapper",
             name=sensor_make.lower() + "_" + sensor_model.lower() + "_ros_wrapper_node",
             parameters=[
