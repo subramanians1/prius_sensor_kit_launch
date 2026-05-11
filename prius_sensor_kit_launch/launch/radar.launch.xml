@@ -61,8 +61,8 @@
         <param from="$(find-pkg-share prius_sensor_kit_launch)/config/simple_object_merger.param.yaml"/>
       </node>
     </group>
-
-    <group if="$(eval &quot; '$(var pipeline_type)'=='pointcloud'&quot;)">
+<!-- pipeline_type hardcoded to tracks in concatenate -->
+    <group if="$(eval &quot; '$(var pipeline_type)'=='pointcloud'&quot;)"> 
      <node pkg="autoware_pointcloud_preprocessor" exec="concatenate_and_time_sync_node" name="concatenate_data_radar" output="screen">
       <remap from="~/input/twist" to="/sensing/vehicle_velocity_converter/twist_with_covariance"/>
       <remap from="output" to="/sensing/radar/concatenated/pointcloud"/>

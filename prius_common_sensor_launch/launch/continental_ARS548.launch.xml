@@ -26,8 +26,22 @@
             <arg name="acceleration_topic" value="$(var acceleration_topic)"/>
             <arg name="steering_angle_topic" value="$(var steering_angle_topic)"/>
         </include>
+        
     </group>
+    <!-- <arg name="pcd2_message_converter_param_path"
+        default="$(find-pkg-share prius_common_sensor_launch)/config/radar_scan_to_pointcloud2.param.yaml"/>
 
+        <node pkg="radar_scan_to_xyzirc_pointcloud2"
+            exec="radar_scan_to_xyzirc_pointcloud2_node"
+            name="pcd2_message_converter">
+
+  <param from="$(var pcd2_message_converter_param_path)" />
+
+        <remap from="~/input/radar" to="scan_raw"/>
+        <remap from="~/output/amplitude_pointcloud" to="pointcloud_from_tracks"/>
+        <remap from="~/output/doppler_pointcloud" to="doppler_pointcloud"/>
+
+        </node> -->
     <group if="$(eval &quot;'$(var pipeline_type)'=='pointcloud'&quot;)">
         <push-ros-namespace namespace="pointcloud"/>
         <include file="$(find-pkg-share prius_common_sensor_launch)/launch/nebula_radar_container.launch.py">

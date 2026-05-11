@@ -3,10 +3,14 @@
     output_frame: base_link
     # has_static_tf_only: true
     input_topics: [
-                    "/sensing/radar/front/pointcloud/amplitude_pointcloud",
-                    "/sensing/radar/left/pointcloud/amplitude_pointcloud",
-                    "/sensing/radar/rear/pointcloud/amplitude_pointcloud",
-                    "/sensing/radar/right/pointcloud/amplitude_pointcloud",
+                    "/sensing/radar/front/pointcloud/amplitude_pointcloud", #pipeline -> pointcloud 
+                    "/sensing/radar/left/pointcloud/amplitude_pointcloud",  #pipeline -> pointcloud
+                    "/sensing/radar/rear/pointcloud/amplitude_pointcloud",  #pipeline -> pointcloud
+                    "/sensing/radar/right/pointcloud/amplitude_pointcloud", #pipeline -> pointcloud
+                    # /sensing/radar/front/tracks/pointcloud_from_tracks, #pipeline -> tracks
+                    # /sensing/radar/right/tracks/pointcloud_from_tracks, #pipeline -> tracks
+                    # /sensing/radar/left/tracks/pointcloud_from_tracks,  #pipeline -> tracks
+                    # /sensing/radar/rear/tracks/pointcloud_from_tracks   #pipeline -> tracks
                 ]
     # max_queue_size: 5
     # timeout_sec: 0.11
